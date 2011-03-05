@@ -1,0 +1,11 @@
+:account:
+  :user: 'user'
+  :pass: 'pass'
+:updater:
+  :host: 'dinamico.cdmon.org'
+  :url: '/onlineService.php?enctype=MD5&n='
+:timer:
+  :ok: 1800
+  :fail: 15
+:logger:
+  :path: '/var/log/cdmon-updater.log'
