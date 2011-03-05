@@ -1,0 +1,8 @@
+#!/bin/sh
+case "$1" in
+start) exec ruby /opt/ip-autoupdater/timer.rb &;;
+stop) ;;
+restart) /bin/sh $0 start ;;
+*) echo "Usage: $0 {start}"
+exit 1 ;;
+esac
