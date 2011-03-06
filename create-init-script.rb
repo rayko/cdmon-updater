@@ -30,7 +30,7 @@ case \"$1\" in
         if [ -f $PIDFILE ]
         then
             kill `cat $PIDFILE`
-            ruby run.rb &
+            exec ruby run.rb &
             echo \"Restarted succesfully\"
         else
             echo \"Process file not found. Did you run the updater first?\"
