@@ -2,8 +2,7 @@ require 'net/http'
 require 'digest/md5'
 require 'uri'
 
-
-class CdmonUpdater
+class CDmonUpdater
   attr_accessor :log, :settings, :messages, :timer
 
   def initialize logger=nil, settings=nil
@@ -30,7 +29,7 @@ class CdmonUpdater
         set_fail_timer
       end
     rescue => e
-      self.log.error "FAIL - Connection issue. Cannot connect with server. #{e}"
+      self.log.error e
       set_fail_timer
     end
     return self.timer
