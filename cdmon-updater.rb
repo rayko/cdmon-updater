@@ -45,15 +45,15 @@ class CDmonUpdater
       parsed_result[var.split('=')[0]] = var.split('=')[1]
     end
     if parsed_result['resultat'] == 'guardatok'
-      result = {:message => "Update OK. New IP: #{parsed_result['newip']}", :error => false}
+      result = {:message => "Update OK. New IP: #{parsed_result['newip']} - Next update in #{Time.at(self.settings[:timer][:ok]).gmtime.strftime('%H:%M:%S')}", :error => false}
     elsif parsed_result['resultat'] == 'customok'
-      result = {:message => "Custom update OK.", :error => false}
+      result = {:message => "Custom update OK. Next update in #{Time.at(self.settings[:timer][:ok]).gmtime.strftime('%H:%M:%S')}", :error => false}
     elsif parsed_result['resultat'] == 'badip'
-      result = {:message => "Invalid IP", :error => true}
+      result = {:message => "Invalid IP - Next try in #{Time.at(self.settings[:timer][:fail]).gmtime.strftime('%H:%M:%S')}", :error => true}
     elsif parsed_result['resultat'] == 'errorlogin'
-      result = {:message => "Login data is incorrect. Cannot update.", :error => true}
+      result = {:message => "Login data is incorrect. Cannot update. Next try in #{Time.at(self.settings[:timer][:fail]).gmtime.strftime('%H:%M:%S')}", :error => true}
     elsif parsed_result['resultat'] == 'novaversio'
-      result = {:message => "There is a new version of the API. Check CDMon site for more info.", :error => true}
+      result = {:message => "There is a new version of the API. Check CDMon site for more info. Next try in #{Time.at(self.settings[:timer][:fail]).gmtime.strftime('%H:%M:%S')}", :error => true}
     end
     return result
   end
