@@ -1,7 +1,8 @@
 #!/bin/sh
 # Starts the CDmon updater as daemon so it can run every time.
 
-PIDFILE=./proc.pid
+RUNFILE=/home/rayko/desarrollo/cdmon-updater/run.rb
+PIDFILE=/home/rayko/desarrollo/cdmon-updater/proc.pid
 RUBY=/usr/bin/ruby
 NAME="CDmon Updater"
 
@@ -11,10 +12,16 @@ then
     exit 0
 fi
 
+if [ ! b-f $RUNFILE ]
+then
+    echo "Cannot find run.rb to start the updater. Make sure that is's correctly placed."
+    exit 0
+fi
+
 case "$1" in
 'start')
         echo "Starting CDmon updater..."
-        ruby run.rb &
+        ruby $RUNFILE &
         echo "Started succesfully"
         ;;
 'restart')
@@ -40,8 +47,7 @@ case "$1" in
         fi
         ;;
 *)
-        echo "Usage: $0 { start | stop }"
+        echo "Usage: $0 { start | stop | restart }"
         ;;
 esac
 exit 0
-
