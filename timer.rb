@@ -1,6 +1,23 @@
 require 'net/http'
 require 'digest/md5'
 require 'uri'
+require 'yaml'
+require 'logger'
+
+class Timer
+  attr_accessor :settings, :log, :log_file
+
+  def initialize
+    self.settings = YAML::load 'settins.yml'
+    unless File.exist? self.settings[:logger][:path]
+      self.log_file = File.open settings[:logger][:path], 'w'
+    else
+      self.log_file = File.open settings[:logger][:path], 'a'
+    end
+    self.logger = Logger.new self.file
+    self.log.level = Logger::INFO
+  end
+end
 
 User = 'rayko'
 Pass = Digest::MD5.hexdigest('53236815')
@@ -15,12 +32,12 @@ def updateIP
   begin
     http = Net::HTTP.new(Host)          # Create a connection
     headers, body = http.get(Path)      # Request the file
-    if headers.code == "200"            # Check the status code   
-      # print Time.now.to_s + " OK - " + body + "\n"                        
+    if headers.code == "200"            # Check the status code
+      # print Time.now.to_s + " OK - " + body + "\n"
       File::open("/var/log/IPupdate-log.txt", "a") do |sal|  sal << Time.now.to_s + " - OK - " + body + "\n" end
       return Timer_ok
-    else                                
-      # puts Time.now.to_s + " FAIL - #{headers.code} #{headers.message} \n" 
+    else
+      # puts Time.now.to_s + " FAIL - #{headers.code} #{headers.message} \n"
       File::open("/var/log/IPupdate-log.txt", "a") do |sal|  sal << Time.now.to_s + " - FAIL - #{headers.code} #{headers.message} \n" end
       return Timer_fail
     end
@@ -32,4 +49,4 @@ end
 
 while true do
    sleep(updateIP)
-end 
+end
