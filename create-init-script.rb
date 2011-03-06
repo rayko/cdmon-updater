@@ -57,5 +57,7 @@ exit 0
 out.close
 File.chmod 711, "cdmon-updater"
 
+
 puts "File cdmon-updater generated. Place this file in /etc/init.d/ to automatically start it on boot."
 puts "Usage cdmon-updater { start | stop | restart }"
+
