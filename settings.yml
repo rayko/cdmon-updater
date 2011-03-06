@@ -3,7 +3,7 @@
   :pass: 'pass'
 :updater:
   :host: 'dinamico.cdmon.org'
-  :url: '/onlineService.php'
+  :path: '/onlineService.php'
 :timer:
   :ok: 1800
   :fail: 15
