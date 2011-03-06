@@ -8,5 +8,5 @@
   :ok: 1800
   :fail: 15
 :logger:
-  :path: '/var/log/cdmon-updater.log'
+  :path: 'cdmon-updater.log'
 
