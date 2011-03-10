@@ -7,7 +7,7 @@ $LOAD_PATH << path
 if ARGV[0] == 'install'
   puts 'Installing CDmon Updater...'
   if File.exist? 'run'
-    File.cdmon 755, 'run'
+    File.chmod 755, 'run'
     require 'create-init-script'
     puts 'Generating init script...'
     begin
@@ -18,7 +18,7 @@ if ARGV[0] == 'install'
       exit
     end
     FileUtils.move 'lib/cdmon-updater', '/etc/init.d/'
-    puts ''
+    puts 'Init script installed.'
   else
     puts 'Error: File not found "run"'
   end
