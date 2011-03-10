@@ -1,5 +1,7 @@
-out = File.new 'cdmon-updater', 'w'
-out << "#!/bin/sh
+class InitScript
+  def generate
+    out = File.new 'cdmon-updater', 'w'
+    out << "#!/bin/sh
 # Starts the CDmon updater as daemon so it can run every time.
 
 RUNFILE=#{Dir.pwd}/run
@@ -47,10 +49,8 @@ esac
 exit 0
 "
 
-out.close
-File.chmod 0711, "cdmon-updater"
-
-
-puts "File cdmon-updater generated. Place this file in /etc/init.d/ to automatically start it on boot."
-puts "Usage cdmon-updater { start | stop | restart }"
+    out.close
+    File.chmod 0711, "cdmon-updater"
+  end
+end
 
