@@ -1,0 +1,15 @@
+#!/usr/bin/ruby
+
+require 'pathname'
+path = Pathname.new($0).parent.realpath.join('lib')
+
+$LOAD_PATH << path
+
+pid = File.new path.parent.join('proc.pid'), 'w'
+pid << Process.pid
+pid.close
+
+require 'timer'
+
+timer = Timer.new path
+timer.run

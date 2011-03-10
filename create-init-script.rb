@@ -2,27 +2,20 @@ out = File.new 'cdmon-updater', 'w'
 out << "#!/bin/sh
 # Starts the CDmon updater as daemon so it can run every time.
 
-RUNFILE=#{Dir.pwd}/run.rb
+RUNFILE=#{Dir.pwd}/run
 PIDFILE=#{Dir.pwd}/proc.pid
-RUBY=/usr/bin/ruby
 NAME=\"CDmon Updater\"
 
-if [ ! b-f $RUBY ]
+if [ ! -f $RUNFILE ]
 then
-    echo \"Ruby 1.8.7 is not installed\"
-    exit 0
-fi
-
-if [ ! b-f $RUNFILE ]
-then
-    echo \"Cannot find run.rb to start the updater. Make sure that is's correctly placed.\"
+    echo \"Cannot find run script to start the updater. Make sure that is's correctly placed.\"
     exit 0
 fi
 
 case \"$1\" in
 'start')
         echo \"Starting CDmon updater...\"
-        ruby $RUNFILE &
+        exec $RUNFILE &
         echo \"Started succesfully\"
         ;;
 'restart')
@@ -30,7 +23,7 @@ case \"$1\" in
         if [ -f $PIDFILE ]
         then
             kill `cat $PIDFILE`
-            exec ruby run.rb &
+            exec $RUNFILE &
             echo \"Restarted succesfully\"
         else
             echo \"Process file not found. Did you run the updater first?\"
