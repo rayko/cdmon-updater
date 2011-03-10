@@ -11,13 +11,14 @@ if ARGV[0] == 'install'
     require 'create-init-script'
     puts 'Generating init script...'
     begin
-      init.generate
       init = InitScript.new
+      init.generate
     rescue => error
+      puts error
       puts 'Cannot generate the script. Terminating installation.'
       exit
     end
-    FileUtils.move 'lib/cdmon-updater', '/etc/init.d/'
+    FileUtils.move path.parent.join('cdmon-updater'), '/etc/init.d/'
     puts 'Init script installed.'
   else
     puts 'Error: File not found "run"'
@@ -27,7 +28,7 @@ if ARGV[0] == 'install'
   puts 'To stop execute the command "sudo /etc/init.d/cdmon-updater stop"'
   puts 'CDmon Updater will log it\'s activity to the logfile /var/log/cdmon-updater.log.'
   puts 'Update the file on "lib/settings.yml" with your user and pass in order to update your IP.'
-  puts 'Enjoy!'
+  puts "\nEnjoy!"
 elsif ARGV[0] == 'remove'
   puts 'Removing CDmon Updater...'
   FileUtils.rm '/etc/init.d/cdmon-updater'
