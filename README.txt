@@ -10,10 +10,9 @@ Requirements
 Usage
 
         1. Grab a copy of the repo and place it wherever you like.
-        2. Edit the settings.yml file and place your data.
-        3. Execute the command "sudo ruby create-init-script.rb"
-        4. Execute the command "sudo mv cdmon-updater /etc/init.d/"
-        5. Reboot and enjoy!
+        2. Edit the settings.yml file on the lib folder and place your data.
+        3. Run the setup.rb to install the script: "sudo ruby setup.rb install"
+        4. Enjoy!
 
 Usage of the init script
 
@@ -23,4 +22,6 @@ Additional Notes
 
         The program creates a logfile /var/log/cdmon-updater.log to follow each update or error.
         Make sure the mode and owner are correct for the boot script.
+
+	To remove CDmon updater just run "sudo ruby setup.rb remove"
 
